@@ -13,7 +13,7 @@ import {
 const normalizeUrl = (url) => {
   if (!url) return "";
   return url.startsWith("/uploads")
-    ? `http://localhost:5050${url}`
+    ? `http://localhost:5000${url}`
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
 
@@ -257,7 +257,7 @@ const BlogCard = React.memo(({ blog }) => {
             </span>
 
             <div
-              className="text-sm font-medium space-y-0.5 text-center sm:text-right"
+              className="text-sm font-medium space-y-0.5  sm:text-right"
               style={{ color: colors["--text-light"], userSelect: "text" }}
             >
               <p>
@@ -290,17 +290,17 @@ const BlogCard = React.memo(({ blog }) => {
           {/* Share Button Always Visible */}
           <button
             onClick={handleShareClick}
-            className="self-start inline-flex items-center gap-2 rounded-full font-semibold focus:outline-none focus:ring-2 transition"
+            className="self-start inline-flex items-center gap-1 rounded-full font-semibold focus:outline-none focus:ring-2 transition"
             style={{
               backgroundColor: colors["--accent-yellow"],
               color: colors["--text-dark"],
-              padding: "0.5rem 1.5rem",
+              padding: "0.5rem 0.5rem",
             }}
             aria-haspopup="dialog"
             aria-expanded={shareModalOpen}
             aria-controls="share-modal"
           >
-            <FaShareAlt className="w-5 h-5" />
+            <FaShareAlt className="w-3.5 h-3" />
             Share
           </button>
           
