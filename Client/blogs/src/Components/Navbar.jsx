@@ -61,7 +61,7 @@ const Navbar = () => {
         { path: "/blog/mindset", label: "Mindset" },
         { path: "/blog/communication", label: "Communication" },
         { path: "/blog/strategy", label: "Strategies" },
-        { path: "/blog/Marketing%20and%20Sales", label: "Marketing and Sales" },
+        { path: "/blog/Marketing%20and%20Sales", label: "Marketing & Sales" },
       ],
     },
     ...(isLoggedIn && isAdmin ? [{ path: "/admin", label: "Create Blog" }] : []),
@@ -89,7 +89,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`fixed w-full z-50 px-6 py-4 ${navbarStyle}`}>
+      <nav className={`fixed w-full z-50 px-6 py-2 ${navbarStyle}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link
