@@ -94,7 +94,7 @@ const AdminDashboard = () => {
       formData.append("content", data.content);
       formData.append("thumbnail", fileInput);
 
-      const response = await fetch("http://localhost:5050/api/blogs", {
+      const response = await fetch("http://localhost:5000/api/blogs", {
         method: "POST",
         body: formData,
       });
@@ -118,7 +118,7 @@ const AdminDashboard = () => {
 
   return (
     <motion.div
-      className="max-w-6xl mx-auto p-8"
+      className="rounded-4xl max-w-6xl mx-auto p-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -301,25 +301,24 @@ const AdminDashboard = () => {
                 debouncedSetContent(newContent);
               }}
               config={{
-                readonly: false,
-                toolbarButtonSize: "medium",
-                uploader: { insertImageAsBase64URI: true },
-                askBeforePasteHTML: false,
-                askBeforePasteFromWord: false,
-                pastePlain: false,
-                cleanHTML: {
-                  cleanOnPaste: true,
-                  fillEmptyParagraph: false,
-                },
-                saveSelectionOnBlur: true,
-                autofocus: true,
-                spellcheck: true,
-                tabIndex: 1,
-                height: 400,
-                toolbarSticky: false,
-              }}
-              tabIndex={1}
-            />
+        readonly: false,
+        toolbarButtonSize: "medium",
+        uploader: { insertImageAsBase64URI: true },
+        askBeforePasteHTML: false,
+        askBeforePasteFromWord: false,
+        pastePlain: false,
+        cleanHTML: {
+          cleanOnPaste: true,
+          fillEmptyParagraph: false,
+        },
+        saveSelectionOnBlur: true,
+        autofocus: true,
+        spellcheck: true,
+        height: 400,
+        toolbarSticky: false,
+      }}
+      tabIndex={1}
+/>
           </motion.div>
           <AnimatePresence>
             {errors.content && (
