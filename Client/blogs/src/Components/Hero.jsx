@@ -84,34 +84,36 @@ const HeroSection = () => {
           </motion.div>
 
           {/* Text Content */}
-          <motion.div
-            className="flex flex-col items-center text-center lg:items-start lg:text-left gap-6"
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-          >
-            <motion.img
-              src={brandlogo}
-              alt="Logo"
-              className="w-28 sm:w-36 md:w-44 h-auto object-contain shadow-xl"
-              whileHover={{ scale: 1.05 }}
-            />
+         <motion.div
+  className="flex flex-col items-center text-center lg:items-start lg:text-left gap-6"
+  initial={{ opacity: 0, x: 60 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+>
+  <motion.img
+    src={brandlogo}
+    alt="Logo"
+    className="w-28 sm:w-36 md:w-44 h-auto object-contain shadow-xl"
+    whileHover={{ scale: 1.05 }}
+  />
 
-            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-[#0D0D0D] dark:text-white leading-tight">
-              Welcome to <span className="text-[#FFD600]">Deven</span>
-            </h1>
+  <h1 className="leading-tight font-extrabold text-[#0D0D0D] dark:text-white">
+    <span className="block text-2xl sm:text-3xl xl:text-4xl">Welcome to</span>
+    <span className="block text-5xl sm:text-6xl xl:text-7xl text-[#FFD600]">Deven</span>
+  </h1>
 
-            <p className="text-gray-700 dark:text-gray-300 max-w-xl text-lg sm:text-xl xl:text-2xl">
-              Empowering minds through stories. Dive into curated blogs that inform, inspire, and ignite curiosity — tailored by category, delivered with heart.
-            </p>
+  <p className="text-gray-700 dark:text-gray-300 max-w-xl text-lg sm:text-xl xl:text-2xl">
+    Empowering minds through stories. Dive into curated blogs that inform, inspire, and ignite curiosity — tailored by category, delivered with heart.
+  </p>
 
-            <button
-              onClick={handleExploreClick}
-              className="mt-2 sm:mt-4 px-8 py-3 bg-[#FFD600] text-black font-medium rounded-lg hover:bg-[#FDD835] transition-colors duration-300 text-base xl:text-lg"
-            >
-              Explore Blogs
-            </button>
-          </motion.div>
+  <button
+    onClick={handleExploreClick}
+    className="mt-2 sm:mt-4 px-8 py-3 bg-[#FFD600] text-black font-medium rounded-lg hover:bg-[#FDD835] transition-colors duration-300 text-base xl:text-lg"
+  >
+    Explore Blogs
+  </button>
+</motion.div>
+
         </div>
       </motion.div>
 
