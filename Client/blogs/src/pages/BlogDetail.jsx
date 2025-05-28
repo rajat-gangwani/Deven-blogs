@@ -19,7 +19,7 @@ const BlogDetail = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`http://localhost:5000/api/blogs/${slug}`);
+        const response = await fetch(`https://deven-blogs-backend.onrender.com/api/blogs/${slug}`);
         if (!response.ok) throw new Error("Blog not found");
         const data = await response.json();
         setBlog(data);
