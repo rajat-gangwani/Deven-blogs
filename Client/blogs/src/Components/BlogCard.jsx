@@ -13,7 +13,7 @@ import {
 const normalizeUrl = (url) => {
   if (!url) return "";
   return url.startsWith("/uploads")
-    ? `http://localhost:5000${url}`
+    ? `https://deven-blogs-backend.onrender.com${url}`
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
 
