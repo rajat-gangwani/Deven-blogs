@@ -27,7 +27,7 @@ const SearchBar = ({ isOpen, onClose }) => {
     const timeout = setTimeout(async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5050/api/search?q=${searchTerm}`
+          `https://deven-blogs-backend.onrender.com/api/search?q=${searchTerm}`
         );
         const filtered = response.data.filter((item) =>
           item.title.toLowerCase().includes(searchTerm.toLowerCase())
