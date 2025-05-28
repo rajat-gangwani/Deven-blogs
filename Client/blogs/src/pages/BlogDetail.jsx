@@ -46,7 +46,7 @@ const BlogDetail = () => {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/blogs/${slug}`, {
+      const response = await fetch(`https://deven-blogs-backend.onrender.com/api/blogs/${slug}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
