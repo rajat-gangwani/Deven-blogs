@@ -14,7 +14,7 @@ const normalizeUrl = (url) => {
   if (!url) return "";
   const isRelativeUpload = url.includes("uploads") && !url.startsWith("http");
   return isRelativeUpload
-    ? ⁠ http://https://deven-blogs-backend.onrender.com/${url.replace(/^\/?/, "")} ⁠
+    ? `https://deven-blogs-backend.onrender.com/${url.replace(/^\/?/, "")}`
     : url;
 };
 
