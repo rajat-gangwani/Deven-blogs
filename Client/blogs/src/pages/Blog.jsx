@@ -16,7 +16,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("https://deven-blogs-backend.onrender.com/api/blogs");
+        const response = await axios.get("http://localhost:5000/api/blogs");
         setBlogs(response.data);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
@@ -39,16 +39,7 @@ const Blog = () => {
   }, {});
 
   return (
-    <section className="overflow-x-hidden min-h-screen w-full py-20 px-4 sm:px-6 md:px-10 lg:px-24 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-extrabold bg-black dark:bg-gradient-to-r from-[#FFD600] via-[#FDD835] to-[#FFF9C4] bg-clip-text text-transparent drop-shadow-xl tracking-tight">
-          Discover Inspiring Reads
-        </h2>
-       <p className="mt-6 text-lg md:text-xl text-[#2C2C2E] dark:text-[#FFF9C4] max-w-3xl mx-auto leading-relaxed">
-          Dive into a world of curated knowledge across diverse categories — from finance and technology to lifestyle and creativity. Our expertly selected blogs are designed to spark your curiosity, inspire new ideas, and empower your journey towards growth and discovery.
-        </p>
-      </div>
-
+    <section className="overflow-x-hidden min-h-screen w-full py-12 px-4 sm:px-6 md:px-10 lg:px-24 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700">
       {Object.entries(categorizedBlogs).map(([category, categoryBlogs]) => (
         <div key={category} className="mb-24">
           <div className="flex justify-between items-center mb-5 px-2">
@@ -57,7 +48,7 @@ const Blog = () => {
             </h3>
             <button
               onClick={() => navigate(`/blog/${category}`)}
-              className="flex items-center gap-1 text-sm md:text-base text-black  dark:text-[#FFF9C4] dark:hover:text-[#FFD600] font-semibold transition-colors"
+              className="flex items-center gap-1 text-sm md:text-base text-black dark:text-[#FFF9C4] dark:hover:text-[#FFD600] font-semibold transition-colors"
             >
               View More <FiArrowRight size={18} />
             </button>
