@@ -53,7 +53,6 @@ const Navbar = () => {
 
   const navLinks = [
     { path: "/", label: "Home" },
-    { path: "/aboutus", label: "About Us" },
     {
       label: "Blog",
       submenu: [
@@ -64,6 +63,7 @@ const Navbar = () => {
         { path: "/blog/Marketing%20and%20Sales", label: "Marketing & Sales" },
       ],
     },
+    { path: "/about", label: "About Us" },
     ...(isLoggedIn && isAdmin ? [{ path: "/admin", label: "Create Blog" }] : []),
   ];
 
@@ -98,7 +98,7 @@ const Navbar = () => {
             className="font-extrabold text-2xl select-none"
           >
             <span className="text-black dark:text-yellow-300">Deven</span>
-            <div className="text-xs font-light -mt-1">by kapil gatani</div>
+            <div className="text-xs font-light -mt-1">by kapil gattani</div>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -164,7 +164,7 @@ const Navbar = () => {
                   to="/signup"
                   className={`${linkBaseClasses} ${hoverBgClass} select-none`}
                 >
-                  Register
+                  Signup
                 </Link>
               </>
             ) : (
@@ -355,7 +355,7 @@ const Navbar = () => {
                       : "hover:bg-yellow-300 hover:text-black"
                   }`}
               >
-                Register
+                Signup
               </Link>
             </>
           ) : (
