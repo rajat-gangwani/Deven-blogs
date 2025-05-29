@@ -12,9 +12,10 @@ import {
 
 const normalizeUrl = (url) => {
   if (!url) return "";
-  return url.startsWith("/uploads")
-    ? `https://deven-blogs-backend.onrender.com${url}`
-    : url.replace(/([^:]\/)\/+/g, "$1");
+  const isRelativeUpload = url.includes("uploads") && !url.startsWith("http");
+  return isRelativeUpload
+    ? ⁠ http://localhost:5000/${url.replace(/^\/?/, "")} ⁠
+    : url;
 };
 
 const cardVariants = {
