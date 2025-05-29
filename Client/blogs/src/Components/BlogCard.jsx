@@ -12,11 +12,12 @@ import {
 
 const normalizeUrl = (url) => {
   if (!url) return "";
-  const isRelativeUpload = url.includes("uploads") && !url.startsWith("http");
-  return isRelativeUpload
-    ? `https://deven-blogs-backend.onrender.com/${url.replace(/^\/?/, "")}`
-    : url;
+  return url.startsWith("/uploads")
+    ? `http://localhost:5000${url}`
+    : url.replace(/([^:]\/)\/+/g, "$1");
 };
+console.log(`BlogCard component loaded:${normalizeUrl}`);
+
 
 const cardVariants = {
   rest: {
@@ -275,7 +276,7 @@ const BlogCard = React.memo(({ blog }) => {
                   style={{ color: colors["--accent-yellow"] }}
                   className="font-semibold"
                 >
-                  Kapil Gatani
+                  Kapil Gattani
                 </span>
               </p>
             </div>
