@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="md:col-span-2 space-y-5">
             <h2 className="text-4xl font-extrabold tracking-tight hover:scale-105 transition-transform duration-500 select-none group">
               <span className=" group-hover:brightness-110 transition-all">
-                Kapil Gatani
+                Kapil Gattani
               </span>
             </h2>
             <p className="text-sm text-black dark:text-gray-300 max-w-sm transition-all">
@@ -118,7 +118,7 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-center gap-2 text-center">
           <p className="text-sm text-black dark:text-gray-300">Made with ❤️ in India</p>
           <p className="text-sm text-black dark:text-gray-300">
-            ©️ {new Date().getFullYear()} Kapil Gatani. All rights reserved.
+            ©️ {new Date().getFullYear()} Kapil Gattani. All rights reserved.
           </p>
         </div>
       </div>
@@ -127,3 +127,4 @@ const Footer = () => {
 };
 
 export default Footer;
+// this is footer
