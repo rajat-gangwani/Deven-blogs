@@ -1,29 +1,31 @@
 // /backend/middleware/upload.js
+
 import multer from "multer";
-import path from "path";
-import { fileURLToPath } from "url";
-import fs from "fs/promises";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import dotenv from "dotenv";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Load env variables
+dotenv.config();
 
-// Create uploads folder outside the backend
-const uploadsDir = path.join(__dirname, "../../uploads");
+// Cloudinary config
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-// Ensure uploads folder exists
-await fs.mkdir(uploadsDir, { recursive: true });
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const safeName = file.originalname.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9.-]/g, "");
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}-${safeName}`;
-    cb(null, uniqueName);
+// Cloudinary storage setup
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "blogs", // Cloudinary folder name
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ quality: "auto" }, { fetch_format: "auto" }],
   },
 });
 
+// Optional file filter
 const fileFilter = (req, file, cb) => {
   const allowed = ["image/jpeg", "image/png", "image/webp"];
   allowed.includes(file.mimetype)
@@ -31,13 +33,14 @@ const fileFilter = (req, file, cb) => {
     : cb(new Error("Only JPEG, PNG, or WEBP images are allowed"), false);
 };
 
+// Multer setup with limits preserved
 const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 1 * 1024 * 1024 * 1024,   // 1 GB max file size (already here)
-    fieldSize: 2 * 1024 * 1024 * 1024,  // 2 GB max size for non-file fields (text fields)
-    files: 1,
+    fileSize: 1 * 1024 * 1024 * 1024,   // 1 GB
+    fieldSize: 2 * 1024 * 1024 * 1024,  // 2 GB for non-file fields
+    files: 1,                           // Allow only 1 file
   },
 });
 
