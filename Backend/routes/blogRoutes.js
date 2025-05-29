@@ -1,7 +1,8 @@
 import express from "express";
-import upload from "../middleware/upload.js";
+import upload from "../middleware/upload.js"; // multer middleware
 import Blog from "../models/Blog.js";
 import { v4 as uuidv4 } from "uuid";
+import cloudinary from "../config/cloudinary.js";  // <-- Import Cloudinary config
 
 const router = express.Router();
 
@@ -13,30 +14,15 @@ const allowedCategories = [
   "Communication",
 ];
 
-// Helper to safely join URLs
-function joinUrl(base, path) {
-  if (!base.endsWith("/")) base += "/";
-  if (path.startsWith("/")) path = path.slice(1);
-  return base + path;
-}
-
-const baseUrl = process.env.BACKEND_URL || "http://localhost:5050";
-
 // === GET /api/blogs - fetch all blogs ===
 router.get("/", async (req, res) => {
   try {
     const blogs = await Blog.findAll({ order: [["createdAt", "DESC"]] });
 
     const blogsWithThumbnails = blogs.map((blog) => {
-      let thumbnailUrl = null;
-      if (blog.thumbnailType === "file" && blog.thumbnail) {
-        thumbnailUrl = joinUrl(baseUrl, blog.thumbnail);
-      } else if (blog.thumbnailType === "url" && blog.thumbnail) {
-        thumbnailUrl = blog.thumbnail;
-      }
       return {
         ...blog.dataValues,
-        thumbnailUrl,
+        thumbnailUrl: blog.thumbnailType === "file" ? blog.thumbnail : blog.thumbnail,
       };
     });
 
@@ -50,11 +36,16 @@ router.get("/", async (req, res) => {
 // === POST /api/blogs - create a blog ===
 router.post("/", upload.single("thumbnail"), async (req, res) => {
   try {
-    const { title, description, category, content, thumbnail: thumbnailUrlFromBody } = req.body;
+    const {
+      title,
+      description,
+      category,
+      content,
+      thumbnail: thumbnailUrlFromBody,
+    } = req.body;
 
     const errors = [];
 
-    // Validate input
     if (!title?.trim()) errors.push("Title is required");
     if (!description?.trim()) errors.push("Description is required");
     if (!category?.trim()) errors.push("Category is required");
@@ -68,9 +59,11 @@ router.post("/", upload.single("thumbnail"), async (req, res) => {
     let thumbnail = "";
     let thumbnailType = "";
 
-    if (req.file) {
-      thumbnail = `/uploads/${req.file.filename}`;
-      thumbnailType = "file";
+    if (req.file && req.file.path) {
+      // Upload file to Cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path);
+      thumbnail = result.secure_url; // Cloudinary URL
+      thumbnailType = "url";
     } else if (thumbnailUrlFromBody?.trim()) {
       thumbnail = thumbnailUrlFromBody.trim();
       thumbnailType = "url";
@@ -79,16 +72,17 @@ router.post("/", upload.single("thumbnail"), async (req, res) => {
     }
 
     if (errors.length > 0) {
-      return res.status(400).json({ success: false, message: errors.join(", ") });
+      return res
+        .status(400)
+        .json({ success: false, message: errors.join(", ") });
     }
 
-    // Generate slug from title if possible, fallback to UUID
+    // Generate slug
     const slugFromTitle = title
       ? title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")
       : null;
     const slug = slugFromTitle || uuidv4();
 
-    // Check if slug already exists, append UUID if needed
     const existingBlog = await Blog.findOne({ where: { slug } });
     const finalSlug = existingBlog ? `${slug}-${uuidv4()}` : slug;
 
@@ -104,18 +98,16 @@ router.post("/", upload.single("thumbnail"), async (req, res) => {
 
     const blogResponse = {
       ...blog.dataValues,
-      thumbnailUrl:
-        thumbnailType === "file" && thumbnail
-          ? joinUrl(baseUrl, thumbnail)
-          : thumbnailType === "url"
-          ? thumbnail
-          : null,
+      thumbnailUrl: thumbnail,
     };
 
     res.status(201).json({ success: true, blog: blogResponse });
   } catch (err) {
     console.error("Error creating blog:", err);
-    res.status(500).json({ success: false, message: err.message || "Internal server error" });
+    res.status(500).json({
+      success: false,
+      message: err.message || "Internal server error",
+    });
   }
 });
 
@@ -127,17 +119,14 @@ router.get("/:slug", async (req, res) => {
     const blog = await Blog.findOne({ where: { slug } });
 
     if (!blog) {
-      return res.status(404).json({ success: false, message: "Blog not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Blog not found" });
     }
 
     const blogWithThumbnail = {
       ...blog.dataValues,
-      thumbnailUrl:
-        blog.thumbnailType === "file" && blog.thumbnail
-          ? joinUrl(baseUrl, blog.thumbnail)
-          : blog.thumbnailType === "url"
-          ? blog.thumbnail
-          : null,
+      thumbnailUrl: blog.thumbnail,
     };
 
     res.status(200).json(blogWithThumbnail);
@@ -152,17 +141,19 @@ router.delete("/:slug", async (req, res) => {
   try {
     const { slug } = req.params;
 
-    // Find the blog first
     const blog = await Blog.findOne({ where: { slug } });
 
     if (!blog) {
-      return res.status(404).json({ success: false, message: "Blog not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Blog not found" });
     }
 
-    // Delete the blog
     await blog.destroy();
 
-    res.status(200).json({ success: true, message: "Blog deleted successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Blog deleted successfully" });
   } catch (err) {
     console.error("Error deleting blog:", err);
     res.status(500).json({ success: false, message: "Server error" });
