@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
-import loginImage from "../assets/login.png";
+import loginImage from "../assets/logo.png";
 import bannerimage from "../assets/banner.png";
 
 const Signup = () => {
@@ -39,7 +39,7 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("https://deven-blogs-backend.onrender.com/api/auth/signup", {
+      const response = await axios.post("http://localhost:5000/api/auth/signup", {
         username,
         email,
         password,
@@ -78,7 +78,7 @@ const Signup = () => {
         <img
           src={bannerimage}
           alt="Banner"
-          className="w-full h-[220px] object-cover block md:hidden"
+          className="w-full h-[220px] object-cover sm:hidden md:hidden"
         />
         <img
           src={loginImage}
