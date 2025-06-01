@@ -50,7 +50,7 @@ const HeroSection = () => {
     <>
       {/* Top Hero Banner */}
     <motion.div
-  className="w-full min-h-screen flex items-center justify-center py-28 px-6 sm:px-12 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700 relative overflow-hidden"
+  className="h-fit w-full md:min-h-screen flex items-center justify-center py-5 md:py-28 px-6 sm:px-12 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700 relative overflow-hidden"
   initial={{ opacity: 0, scale: 0.95 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ duration: 1, ease: "easeOut" }}
@@ -85,7 +85,7 @@ const HeroSection = () => {
 
       <h1 className="leading-tight font-extrabold text-[#0D0D0D] dark:text-white">
         <span className="block text-2xl sm:text-3xl xl:text-4xl">Welcome to</span>
-        <span className="block text-5xl sm:text-6xl xl:text-7xl text-[#FFD600]">Deven</span>
+        <span className="block text-5xl sm:text-6xl xl:text-7xl text-[#FFD600]">DEVEN</span>
       </h1>
 
       {/* <p className="text-gray-700 dark:text-gray-300 max-w-xl text-lg sm:text-xl xl:text-2xl">
@@ -119,7 +119,7 @@ const HeroSection = () => {
       {/* Show on small screens only */}
       <button
         onClick={handleExploreClick}
-        className="lg:hidden mt-2 sm:mt-4 px-8 py-3 bg-[#FFD600] text-black font-medium rounded-lg hover:bg-[#FDD835] transition-colors duration-300 text-base xl:text-lg"
+        className="hidden lg:hidden mt-2 sm:mt-4 px-8 py-3 bg-[#FFD600] text-black font-medium rounded-lg hover:bg-[#FDD835] transition-colors duration-300 text-base xl:text-lg"
       >
         Explore Blogs
       </button>
@@ -130,10 +130,10 @@ const HeroSection = () => {
 
 
       {/* Second Section */}
-   <section className="w-full px-6 sm:px-10 lg:px-24 py-20 sm:py-28 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700">
+   <section className=" w-full px-6 sm:px-10 lg:px-24 py-5 md:py-20  bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700">
   <div
     ref={ref}
-    className="max-w-7xl mx-auto flex flex-col gap-14 md:gap-24 md:flex-row md:items-center justify-between"
+    className=" max-w-7xl mx-auto flex flex-col gap-14 md:gap-24 md:flex-row md:items-center justify-between"
   >
     {/* Left Side Content (Text + Form) */}
     <motion.div
@@ -144,7 +144,7 @@ const HeroSection = () => {
     >
       {/* Text Paragraph */}
       <p className="text-[#2C2C2E] dark:text-[#DDD6A6] text-lg sm:text-xl xl:text-2xl leading-relaxed max-w-lg text-center md:text-left mx-auto md:mx-0">
-        At Kapil Gattani, we break down the complexities of entrepreneurship into simple, digestible steps,
+        At D, we break down the complexities of entrepreneurship into simple, digestible steps,
         so no aspiring startup founder ever gets stuck between a brilliant idea and an empty wallet.
         Let’s make every blog count.
       </p>
