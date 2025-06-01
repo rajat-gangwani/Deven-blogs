@@ -97,7 +97,7 @@ const Navbar = () => {
             onClick={() => setIsOpen(false)}
             className="font-extrabold text-2xl select-none"
           >
-            <span className="text-black dark:text-yellow-300">Deven</span>
+            <span className="text-black dark:text-yellow-300">DEVEN</span>
             <div className="text-xs font-light -mt-1">by kapil gattani</div>
           </Link>
 
