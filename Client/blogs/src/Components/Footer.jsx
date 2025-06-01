@@ -118,7 +118,7 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-center gap-2 text-center">
           <p className="text-sm text-black dark:text-gray-300">Made with ❤️ in India</p>
           <p className="text-sm text-black dark:text-gray-300">
-            ©️ {new Date().getFullYear()} Kapil Gattani. All rights reserved.
+
           </p>
         </div>
       </div>
