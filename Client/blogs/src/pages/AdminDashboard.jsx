@@ -94,7 +94,7 @@ const AdminDashboard = () => {
       formData.append("content", data.content);
       formData.append("thumbnail", fileInput);
 
-      const response = await fetch("https://deven-blogs-backend.onrender.com/api/blogs", {
+      const response = await fetch("http://localhost:5000/api/blogs", {
         method: "POST",
         body: formData,
       });
