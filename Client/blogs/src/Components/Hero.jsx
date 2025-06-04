@@ -76,17 +76,22 @@ const HeroSection = () => {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
     >
-      <motion.img
+      {/* <motion.img
         src={brandlogo}
         alt="Logo"
         className="w-28 sm:w-36 md:w-44 h-auto object-contain shadow-xl"
         whileHover={{ scale: 1.05 }}
-      />
+      /> */}
 
-      <h1 className="leading-tight font-extrabold text-[#0D0D0D] dark:text-white">
-        <span className="block text-2xl sm:text-3xl xl:text-4xl">Welcome to</span>
-        <span className="block text-5xl sm:text-6xl xl:text-7xl text-[#FFD600]">DEVEN</span>
-      </h1>
+      <h1 className="leading-tight font-extrabold text-center md:text-left text-[#0D0D0D] dark:text-white">
+  <span className="font-serif uppercase block text-2xl sm:text-3xl xl:text-4xl tracking-wide">
+    Welcome to
+  </span>
+  <span className="font-serif uppercase block text-5xl sm:text-6xl xl:text-7xl text-black dark:text-yellow-400 drop-shadow-md">
+    DEVEN
+  </span>
+</h1>
+
 
       {/* <p className="text-gray-700 dark:text-gray-300 max-w-xl text-lg sm:text-xl xl:text-2xl">
         Empowering minds through stories. Dive into curated blogs that inform, inspire, and ignite curiosity — tailored by category, delivered with heart.
@@ -143,11 +148,10 @@ const HeroSection = () => {
       animate={controls}
     >
       {/* Text Paragraph */}
-      <p className="text-[#2C2C2E] dark:text-[#DDD6A6] text-lg sm:text-xl xl:text-2xl leading-relaxed max-w-lg text-center md:text-left mx-auto md:mx-0">
-        At D, we break down the complexities of entrepreneurship into simple, digestible steps,
-        so no aspiring startup founder ever gets stuck between a brilliant idea and an empty wallet.
-        Let’s make every blog count.
-      </p>
+     <p className="text-[#2C2C2E] dark:text-[#DDD6A6] text-center text-lg sm:text-xl xl:text-2xl leading-relaxed max-w-3xl mx-auto md:mx-0 md:text-left">
+  At <span className="font-semibold text-black dark:text-yellow-400">DEVEN</span>, we simplify the journey of entrepreneurship by breaking down complex concepts into clear, actionable steps—ensuring no aspiring founder is left stranded between a great idea and limited resources. <span className="block mt-2">Let’s make every blog count.</span>
+</p>
+
 
       {/* Mobile Image - visible on small screens */}
       <div className="md:hidden flex justify-center">
