@@ -13,7 +13,7 @@ import {
 const normalizeUrl = (url) => {
   if (!url) return "";
   return url.startsWith("/uploads")
-    ? `https://deven-blogs-backend.onrender.com${url}`
+    ? `http://localhost:5000${url}`
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
 console.log(`BlogCard component loaded:${normalizeUrl}`);
@@ -241,7 +241,7 @@ const BlogCard = React.memo(({ blog }) => {
           style={{ color: colors["--text-light"] }}
         >
           <h2
-            className="text-2xl font-extrabold line-clamp-2"
+            className="text-xl md:text-2xl font-extrabold line-clamp-2"
             style={{ color: colors["--accent-yellow-light"], userSelect: "text" }}
           >
             {blog.title}
