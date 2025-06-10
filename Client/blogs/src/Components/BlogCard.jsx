@@ -13,7 +13,7 @@ import {
 const normalizeUrl = (url) => {
   if (!url) return "";
   return url.startsWith("/uploads")
-    ? `http://localhost:5000${url}`
+    ? `${import.meta.env.VITE_API_URL}${url}`
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
 console.log(`BlogCard component loaded:${normalizeUrl}`);

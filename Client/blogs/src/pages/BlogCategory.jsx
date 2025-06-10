@@ -17,7 +17,7 @@ const BlogCategory = () => {
     async function fetchBlogs() {
       setLoading(true);
       try {
-        const response = await fetch("https://deven-blogs-backend.onrender.com/api/blogs");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs`);
         const allBlogs = await response.json();
         const filtered = allBlogs.filter(
           (blog) => blog.category.toLowerCase() === category.toLowerCase()
