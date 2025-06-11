@@ -78,7 +78,7 @@ const Signup = () => {
         <img
           src={bannerimage}
           alt="Banner"
-          className="w-full h-[220px] object-cover sm:hidden md:hidden"
+          className="w-full h-[220px] object-cover hidden sm:hidden md:hidden"
         />
         <img
           src={loginImage}
