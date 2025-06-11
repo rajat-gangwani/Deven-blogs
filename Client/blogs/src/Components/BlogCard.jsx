@@ -13,10 +13,10 @@ import {
 const normalizeUrl = (url) => {
   if (!url) return "";
   return url.startsWith("/uploads")
-    ? `${import.meta.env.VITE_API_URL}${url}`
+    ? `http://localhost:5000${url}`
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
-console.log(`BlogCard component loaded:${normalizeUrl}`);
+
 
 
 const cardVariants = {

@@ -39,8 +39,7 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/auth/signup`, {
+      const response = await axios.post("https://deven-blogs-backend.onrender.com/api/auth/signup", {
         username,
         email,
         password,
@@ -79,7 +78,7 @@ const Signup = () => {
         <img
           src={bannerimage}
           alt="Banner"
-          className="w-full h-[220px] object-cover sm:hidden md:hidden"
+          className="w-full h-[220px] object-cover hidden sm:hidden md:hidden"
         />
         <img
           src={loginImage}
