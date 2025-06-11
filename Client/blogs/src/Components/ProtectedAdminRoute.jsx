@@ -3,19 +3,24 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 
 const ProtectedAdminRoute = ({ children }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen dark:bg-[#1C1C1E] bg-[#F5F5F5] text-gray-700 dark:text-white">
+        Loading...
+      </div>
+    );
+  }
 
   if (!user) {
-    // If not logged in, redirect to login
     return <Navigate to="/login" replace />;
   }
 
   if (user.role !== "admin") {
-    // If not an admin, redirect to 404
     return <Navigate to="/not-found" replace />;
   }
 
-  // User is admin
   return children;
 };
 
