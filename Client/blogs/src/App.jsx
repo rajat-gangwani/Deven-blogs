@@ -1,7 +1,8 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
-
+import ProtectedAdminRoute from "./Components/ProtectedAdminRoute";
+import NotFound from "./pages/NotFound";
 // Pages
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
@@ -46,14 +47,23 @@ const router = createBrowserRouter(
         { path: "/blog/detail/:slug", element: <BlogDetail /> },
         { path: "/login", element: <Login /> },
         { path: "/signup", element: <Signup /> },
-        { path: "/admin", element: <AdminDashboard /> },
+        {
+          path: "/admin",
+          element: (
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          ),
+        },
         { path: "/terms-&-conditions", element: <TermsOfService /> },
-        { path: "/privacy-policy", element: <PrivacyPolicy/> },
+        { path: "/privacy-policy", element: <PrivacyPolicy /> },
+        { path: "*", element: <NotFound /> }, // Catch-all 404
       ],
     },
   ],
   { future: { v7_relativeSplatPath: true } }
 );
+
 
 const App = () => (
   <AuthProvider>
