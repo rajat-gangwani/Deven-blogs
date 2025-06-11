@@ -16,7 +16,7 @@ const normalizeUrl = (url) => {
     ? `http://localhost:5000${url}`
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
-console.log(`BlogCard component loaded:${normalizeUrl}`);
+
 
 
 const cardVariants = {
