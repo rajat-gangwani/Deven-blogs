@@ -39,7 +39,8 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("https://deven-blogs-backend.onrender.com/api/auth/signup", {
+          const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         username,
         email,
         password,
