@@ -51,7 +51,7 @@ const HeroSection = () => {
     <>
       {/* Top Hero Banner */}
       <motion.div
-        className="h-fit w-full md:min-h-screen flex items-center justify-center py-5 md:py-28 px-6 sm:px-12 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700 relative overflow-hidden"
+        className="h-fit w-full md:min-h-screen flex items-center justify-center py-5 md:py-28 px-6 sm:px-12 bg-[#F5F5F5] dark:bg-black transition-colors duration-700 relative overflow-hidden"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
