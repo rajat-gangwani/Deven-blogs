@@ -39,7 +39,7 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post(
+          const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         username,
         email,
@@ -79,7 +79,7 @@ const Signup = () => {
         <img
           src={bannerimage}
           alt="Banner"
-          className="w-full h-[220px] object-cover sm:hidden md:hidden"
+          className="w-full h-[220px] object-cover hidden sm:hidden md:hidden"
         />
         <img
           src={loginImage}

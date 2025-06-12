@@ -16,7 +16,7 @@ const normalizeUrl = (url) => {
     ? `${import.meta.env.VITE_API_URL}${url}`
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
-console.log(`BlogCard component loaded:${normalizeUrl}`);
+
 
 
 const cardVariants = {
