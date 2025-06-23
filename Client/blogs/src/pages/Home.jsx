@@ -1,6 +1,6 @@
 import React from "react";
 import Hero from "../Components/Hero";
-
+import Blog from "./Blog"
 const Home = () => {
   return (
     <div className="w-full dark:bg-black overflow-x-hidden">
@@ -8,6 +8,7 @@ const Home = () => {
         <Hero />
         {/* Optionally include Gallery and Subscribe when needed */}
       </div>
+        <Blog/>
     </div>
   );
 };
