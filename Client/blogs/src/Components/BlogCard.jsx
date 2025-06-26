@@ -17,75 +17,35 @@ const normalizeUrl = (url) => {
     : url.replace(/([^:]\/)\/+/g, "$1");
 };
 
-
-
 const cardVariants = {
   rest: {
     scale: 1,
     y: 0,
     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.08)",
-    transition: {
-      duration: 0.35,
-      ease: "easeOut",
-    },
+    transition: { duration: 0.35, ease: "easeOut" },
   },
   hover: {
     scale: 1.06,
     y: -10,
     boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)",
     rotate: 0.5,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 28,
-      restDelta: 0.001,
-    },
+    transition: { type: "spring", stiffness: 300, damping: 28, restDelta: 0.001 },
   },
 };
 
 const imageVariants = {
-  rest: {
-    scale: 1,
-    rotate: 0,
-    y: 0,
-    boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
-    transition: {
-      duration: 0.35,
-      ease: "easeOut",
-    },
-  },
-  hover: {
-    scale: 1.15,
-    rotate: 3,
-    y: -12,
-    boxShadow: "0 25px 50px rgba(0, 0, 0, 0.25)",
-    transition: {
-      type: "spring",
-      stiffness: 320,
-      damping: 30,
-      restDelta: 0.001,
-    },
-  },
+  rest: { scale: 1, rotate: 0, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+  hover: { scale: 1.15, rotate: 3, y: -12, transition: { type: "spring", stiffness: 320, damping: 30 } },
 };
 
-
-
 const modalBackground = {
-  hidden: { opacity: 0, backdropFilter: "blur(0px)" },
-  visible: {
-    opacity: 1,
-    backdropFilter: "blur(6px)",
-    transition: { duration: 0.3 },
-  },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
 };
 
 const modalContent = {
   hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] },
-  },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
 };
 
 const readIndicatorVariants = {
@@ -134,11 +94,9 @@ const BlogCard = React.memo(({ blog }) => {
 
   useEffect(() => {
     if (!shareModalOpen) return;
-
     const onKeyDown = (e) => {
       if (e.key === "Escape") setShareModalOpen(false);
     };
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [shareModalOpen]);
@@ -148,31 +106,30 @@ const BlogCard = React.memo(({ blog }) => {
   const socialPlatforms = [
     {
       icon: FaFacebookF,
-      color: "#3b5998", // Facebook blue
+      color: "#3b5998",
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(blogUrl)}`,
       label: "Share on Facebook",
     },
     {
       icon: FaTwitter,
-      color: "#1DA1F2", // Twitter blue
+      color: "#1DA1F2",
       href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(blogUrl)}&text=${encodeURIComponent(blog.title)}`,
       label: "Share on Twitter",
     },
     {
       icon: FaWhatsapp,
-      color: "#25D366", // WhatsApp green
+      color: "#25D366",
       href: `https://wa.me/?text=${encodeURIComponent(blog.title + " " + blogUrl)}`,
       label: "Share on WhatsApp",
     },
     {
       icon: FaInstagram,
-      color: "#E1306C", // Instagram pink
+      color: "#E1306C",
       href: "https://instagram.com",
       label: "Instagram (no direct sharing)",
     },
   ];
 
-  // CSS variables for colors
   const colors = {
     "--bg-light": "#F5F5F5",
     "--bg-dark": "#1C1C1E",
@@ -185,47 +142,38 @@ const BlogCard = React.memo(({ blog }) => {
   };
 
   return (
-    <div style={colors} className="w-full max-w-md mx-auto">
+    <div style={colors} className="w-full sm:max-w-md mx-auto px-2">
       <motion.article
         layout
         initial="rest"
         whileHover="hover"
         animate="rest"
         variants={cardVariants}
-        className="relative rounded-3xl shadow-lg overflow-hidden border cursor-pointer"
+        className="relative rounded-3xl overflow-hidden border cursor-pointer"
         style={{
           backgroundColor: colors["--card-bg"],
           borderColor: isRead ? colors["--accent-yellow-light"] + "80" : "#444",
-          borderStyle: "solid",
           borderWidth: "1.5px",
         }}
-        tabIndex={0}
         onClick={handleCardClick}
         onKeyDown={(e) => e.key === "Enter" && handleCardClick()}
+        tabIndex={0}
         aria-label={`Blog post: ${blog.title}`}
       >
-        {/* Image */}
-        <motion.div
-          className="h-56 relative overflow-hidden rounded-t-3xl"
-          variants={imageVariants}
-        >
+        {/* Thumbnail */}
+        <motion.div className="h-40 sm:h-56 relative overflow-hidden rounded-t-3xl" variants={imageVariants}>
           <img
             src={normalizeUrl(blog.thumbnailUrl)}
             alt={blog.title || "Blog thumbnail"}
-            loading="lazy"
-            crossOrigin="anonymous"
             onError={handleError}
-            className="w-full h-full object-cover object-center transition-transform duration-300"
-            style={{ userSelect: "none" }}
+            loading="lazy"
+            className="w-full h-full object-cover object-center"
           />
-          {/* Read Indicator */}
           <motion.div
-            className="absolute top-4 left-4 w-6 h-6 rounded-full shadow-lg flex items-center justify-center"
+            className="absolute top-4 left-4 w-6 h-6 rounded-full flex items-center justify-center"
             variants={readIndicatorVariants}
             initial="hidden"
             animate={isRead ? "visible" : "hidden"}
-            aria-label={isRead ? "Read blog post" : "Unread blog post"}
-            title={isRead ? "Read" : "Unread"}
             style={{
               backgroundColor: colors["--accent-yellow"],
               boxShadow: "0 0 10px " + colors["--accent-yellow-light"],
@@ -236,121 +184,87 @@ const BlogCard = React.memo(({ blog }) => {
         </motion.div>
 
         {/* Content */}
-        <div
-          className="p-6 flex flex-col space-y-4"
-          style={{ color: colors["--text-light"] }}
-        >
-          <h2
-            className="text-xl md:text-2xl font-extrabold line-clamp-2"
-            style={{ color: colors["--accent-yellow-light"], userSelect: "text" }}
-          >
-            {blog.title}
-          </h2>
+        <div className="p-4 sm:p-6 flex flex-col gap-4 text-sm sm:text-base" style={{ color: colors["--text-light"] }}>
+  {/* Title with underline */}
+  <h2 className="text-lg sm:text-xl font-extrabold leading-snug relative line-clamp-2" style={{ color: colors["--accent-yellow-light"] }}>
+    {blog.title}
+  </h2>
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <span
-              className="text-sm font-semibold rounded-full px-3 py-1 select-none"
-              style={{
-                background: `linear-gradient(90deg, ${colors["--highlight-yellow"]}, ${colors["--accent-yellow-light"]})`,
-                color: colors["--text-dark"],
-              }}
-            >
-              {blog.category}
-            </span>
+  {/* Category + Metadata */}
+  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4 text-sm">
+    {/* Category pill */}
+    <span
+      className="font-semibold rounded-full px-3 py-1 shadow-sm backdrop-blur-md w-max"
+      style={{
+        background: `linear-gradient(90deg, ${colors["--highlight-yellow"]}, ${colors["--accent-yellow-light"]})`,
+        color: colors["--text-dark"],
+      }}
+    >
+      {blog.category}
+    </span>
 
-            <div
-              className="text-sm font-medium space-y-0.5  sm:text-right"
-              style={{ color: colors["--text-light"], userSelect: "text" }}
-            >
-              <p>
-                Published on{" "}
-                {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </p>
-              <p>
-                by{" "}
-                <span
-                  style={{ color: colors["--accent-yellow"] }}
-                  className="font-semibold"
-                >
-                  Kapil Gattani
-                </span>
-              </p>
-            </div>
-          </div>
+    {/* Published + Author */}
+    <div className="text-left sm:text-right leading-tight space-y-0.5">
+      <p className="opacity-80">
+        Published on{" "}
+        <span className="font-medium">
+          {new Date(blog.createdAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </span>
+      </p>
+      <p>
+        by{" "}
+        <span className="font-semibold" style={{ color: colors["--accent-yellow"] }}>
+          Kapil Gattani
+        </span>
+      </p>
+    </div>
+  </div>
 
-          <p
-            className="text-base line-clamp-3 leading-relaxed select-text"
-            style={{ color: colors["--text-light"] }}
-          >
-            {blog.description}
-          </p>
+  {/* Blog excerpt */}
+  <p className="text-sm sm:text-base line-clamp-3 text-gray-300 sm:text-gray-200">
+    {blog.description}
+  </p>
 
-          {/* Share Button Always Visible */}
-          <button
-            onClick={handleShareClick}
-            className="self-start inline-flex items-center gap-1 rounded-full font-semibold focus:outline-none focus:ring-2 transition"
-            style={{
-              backgroundColor: colors["--accent-yellow"],
-              color: colors["--text-dark"],
-              padding: "0.5rem 0.5rem",
-            }}
-            aria-haspopup="dialog"
-            aria-expanded={shareModalOpen}
-            aria-controls="share-modal"
-          >
-            <FaShareAlt className="w-3.5 h-3" />
-            Share
-          </button>
-          
-        </div>
+  {/* Share Button */}
+  <button
+    onClick={handleShareClick}
+    className="w-fit inline-flex items-center gap-2 rounded-full font-semibold text-sm transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300"
+    style={{
+      backgroundColor: colors["--accent-yellow"],
+      color: colors["--text-dark"],
+      padding: "0.5rem 1rem",
+    }}
+  >
+    <FaShareAlt className="w-4 h-4" />
+    Share
+  </button>
+</div>
+
       </motion.article>
 
-      {/* Share Modal */}
+      {/* Modal */}
       <AnimatePresence>
         {shareModalOpen && (
           <motion.div
-            id="share-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="share-modal-title"
             initial="hidden"
             animate="visible"
             exit="hidden"
             variants={modalBackground}
-            className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 sm:px-6 overflow-y-auto"
-            style={{
-              backgroundColor: "rgba(13, 13, 13, 0.8)",
-              backdropFilter: "blur(6px)",
-            }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backgroundColor: "rgba(13, 13, 13, 0.85)" }}
             onClick={closeModal}
           >
             <motion.div
               variants={modalContent}
-              className="relative rounded-xl p-5 sm:p-6 md:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
-              style={{
-                background:
-                  "linear-gradient(135deg, " +
-                  colors["--bg-light"] +
-                  ", " +
-                  colors["--highlight-yellow"] +
-                  ")",
-                width: "100%",
-                maxWidth: "28rem",
-                color: colors["--text-dark"],
-              }}
+              className="relative bg-white rounded-xl p-5 sm:p-6 w-full max-w-sm"
+              style={{ background: `linear-gradient(135deg, ${colors["--bg-light"]}, ${colors["--highlight-yellow"]})` }}
               onClick={(e) => e.stopPropagation()}
             >
-              <h3
-                id="share-modal-title"
-                className="text-xl font-bold mb-4"
-                style={{ color: colors["--text-dark"] }}
-              >
-                Share "{blog.title}"
-              </h3>
+              <h3 className="text-lg sm:text-xl font-bold mb-4 text-black">Share "{blog.title}"</h3>
 
               <div className="flex flex-wrap justify-center gap-4 mb-6">
                 {socialPlatforms.map(({ icon: Icon, color, href, label }, idx) => (
@@ -360,41 +274,25 @@ const BlogCard = React.memo(({ blog }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="inline-flex items-center justify-center w-12 h-12 rounded-full transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2"
-                    style={{
-                      backgroundColor: color,
-                      color: "#fff",
-                    }}
+                    className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition"
+                    style={{ backgroundColor: color, color: "#fff" }}
                   >
-                    <Icon className="w-6 h-6" />
+                    <Icon className="w-5 h-5" />
                   </a>
                 ))}
               </div>
 
               <button
                 onClick={handleCopyLink}
-                className="w-full rounded-md py-3 text-sm font-semibold bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                aria-label="Copy blog link"
-                style={{
-                  backgroundColor: colors["--accent-yellow"],
-                  color: colors["--text-dark"],
-                }}
+                className="w-full rounded-md py-2.5 text-sm font-semibold bg-yellow-400 hover:bg-yellow-500 focus:outline-none"
               >
                 Copy Link
               </button>
-              {copySuccess && (
-                <p
-                  className="mt-2 text-center text-sm font-medium"
-                  style={{ color: colors["--text-dark"] }}
-                >
-                  {copySuccess}
-                </p>
-              )}
+              {copySuccess && <p className="text-center mt-2 text-sm font-medium text-black">{copySuccess}</p>}
 
               <button
                 onClick={closeModal}
-                className="absolute top-3 right-3 text-xl font-bold text-gray-700 hover:text-gray-900 focus:outline-none"
-                aria-label="Close share modal"
+                className="absolute top-3 right-4 text-xl font-bold text-gray-700 hover:text-black"
               >
                 ×
               </button>

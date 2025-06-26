@@ -39,16 +39,16 @@ const Blog = () => {
   }, {});
 
   return (
-    <section className="overflow-x-hidden min-h-screen w-full py-12 px-4 sm:px-6 md:px-10 lg:px-24 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700">
+    <section className="w-full py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 bg-[#F5F5F5] dark:bg-[#1C1C1E] transition-colors duration-700">
       {Object.entries(categorizedBlogs).map(([category, categoryBlogs]) => (
-        <div key={category} className="mb-24">
-          <div className="flex justify-between items-center mb-5 px-2">
-            <h3 className="text-2xl md:text-3xl font-bold text-[#2C2C2E] dark:text-[#FFD600] capitalize">
+        <div key={category} className="mb-12 sm:mb-16">
+          <div className="flex justify-between items-center mb-4 sm:mb-6 px-2">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2C2C2E] dark:text-[#FFD600] capitalize">
               {category}
             </h3>
             <button
               onClick={() => navigate(`/blog/${category}`)}
-              className="flex items-center gap-1 text-sm md:text-base text-black dark:text-[#FFF9C4] dark:hover:text-[#FFD600] font-semibold transition-colors"
+              className="flex items-center gap-1 text-sm sm:text-base text-black dark:text-[#FFF9C4] dark:hover:text-[#FFD600] font-semibold transition-colors"
             >
               View More <FiArrowRight size={18} />
             </button>
@@ -57,19 +57,19 @@ const Blog = () => {
           <Swiper
             modules={[Pagination]}
             pagination={{ clickable: true }}
-            spaceBetween={20}
+            spaceBetween={16} // less horizontal gap between cards
             breakpoints={{
-              0: { slidesPerView: 1 },
-              480: { slidesPerView: 1.2 },
-              640: { slidesPerView: 1.6 },
-              768: { slidesPerView: 2.2 },
-              1024: { slidesPerView: 3 },
-              1280: { slidesPerView: 3.5 },
+              0: { slidesPerView: 1, spaceBetween: 12 },
+              480: { slidesPerView: 1.3, spaceBetween: 14 },
+              640: { slidesPerView: 1.7, spaceBetween: 16 },
+              768: { slidesPerView: 2.2, spaceBetween: 18 },
+              1024: { slidesPerView: 3, spaceBetween: 20 },
+              1280: { slidesPerView: 3.5, spaceBetween: 22 },
             }}
-            className="pt-3"
+            className="pt-2 sm:pt-4"
           >
             {categoryBlogs.map((blog) => (
-              <SwiperSlide key={blog.slug} className="pb-8">
+              <SwiperSlide key={blog.slug} className="pb-4 sm:pb-6">
                 <BlogCard
                   blog={{
                     ...blog,
