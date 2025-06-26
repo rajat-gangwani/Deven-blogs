@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "../Components/Hero";         // Hero banner section
 import Blog from "./Blog";                    // Blog listing section
-import CTASection from "../Components/CTASection"; // CTA section we created
+import CTASection from "../Components/CTAsection"; // CTA section we created
 
 const Home = () => {
   return (
